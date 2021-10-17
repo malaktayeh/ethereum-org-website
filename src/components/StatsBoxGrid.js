@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { useIntl } from "gatsby-plugin-intl"
 import axios from "axios"
@@ -147,6 +147,7 @@ const ranges = ["30d", "90d"]
 const GridItem = ({ metric }) => {
   const { title, description, state, buttonContainer, range } = metric
   const isLoading = !state.value
+  const titleRef = useRef()
   const value = state.hasError ? (
     <ErrorMessage />
   ) : isLoading ? (
@@ -203,10 +204,16 @@ const GridItem = ({ metric }) => {
     </ResponsiveContainer>
   )
 
+  useEffect(() => {
+    if (titleRef.current) titleRef.current.focus()
+  }, [])
+
   return (
     <Box>
       <div>
-        <Title>{title}</Title>
+        <Title tabIndex={0} ref={titleRef}>
+          {title}
+        </Title>
         <p>{description}</p>
       </div>
       {!state.hasError && !isLoading && (
