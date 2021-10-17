@@ -126,7 +126,6 @@ const Button = styled.button`
   padding: 2px 15px;
   border-radius: 1px;
   border: 1px solid ${({ theme, color }) => theme.colors[color]};
-  outline: none;
   cursor: pointer;
   &:disabled {
     cursor: default;
